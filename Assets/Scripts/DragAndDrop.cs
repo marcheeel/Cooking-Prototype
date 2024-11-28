@@ -35,14 +35,22 @@ public class DragAndDrop : MonoBehaviour
                     grabbedObject.SetParent(hands);
                     grabbedObject.localPosition = Vector3.zero;
                 }
-                else
+            }
+            else if (hit.transform.tag == "Basket" && Input.GetKeyDown(KeyCode.Space))
+            {
+                isDragging = !isDragging;
+
+                if (isDragging)
                 {
-                    grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-                    grabbedObject.SetParent(null);
-                    grabbedObject = null;
-                    isDragging = !isDragging;
+                    GameObject newObject = Instantiate(hit.transform.GetComponent<Basket>().ingredientToGive,
+                        hit.transform.position, Quaternion.identity);
+                    newObject.GetComponent<Rigidbody>().isKinematic = true;
+                    newObject.transform.SetParent(hands);
+                    newObject.transform.localPosition = Vector3.zero;
+                    grabbedObject = newObject.transform;
                 }
             }
+
         }
     }
 }

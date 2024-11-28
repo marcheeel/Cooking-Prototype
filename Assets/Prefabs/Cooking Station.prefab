@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5085122053973785058}
   m_Layer: 0
   m_Name: Cooking Station
-  m_TagString: Untagged
+  m_TagString: CookingStation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 701029225504922606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 7.75}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6cbcf2d2c7e4d4faf6f4c83d966a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canInteract: 0
   addedIngredients: []
   dishes:
   - {fileID: 976326593463115285, guid: 56e70d669511d6744980c035b081a96c, type: 3}

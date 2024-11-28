@@ -88,27 +88,15 @@ public class CookingStation : MonoBehaviour
         isCooking = false;
     }
     
-    void RemoveUsedIngredients()
-    {
-        for (int i = addedIngredients.Count - 1; i >= 0; i--)
-        {
-            var item = addedIngredients[i];
-            if (item.name == "Apple" || item.name == "Pear")
-            {
-                addedIngredients.RemoveAt(i);
-                Destroy(item);
-            }
-        }
-    }
     
     void AddIngredient(GameObject ingredient)
     {
-        if (ingredient.name == "Apple")
+        if (ingredient.name == "Apple" || ingredient.name == "Apple(Clone")
         {
             appleCount++;
             addedIngredients.Add(ingredient);
         }
-        else if (ingredient.name == "Pear")
+        else if (ingredient.name == "Pear"|| ingredient.name == "Pear(Clone")
         {
             pearCount++;
             addedIngredients.Add(ingredient);
@@ -119,6 +107,20 @@ public class CookingStation : MonoBehaviour
         }
     }
     
+    void RemoveUsedIngredients()
+    {
+        for (int i = addedIngredients.Count - 1; i >= 0; i--)
+        {
+            var item = addedIngredients[i];
+            if (item.name == "Apple" || item.name == "Apple(Clone" 
+                                     || item.name == "Pear" || item.name == "Pear(Clone")
+            {
+                addedIngredients.RemoveAt(i);
+                Destroy(item);
+            }
+        }
+    }
+    
     // Todos los GameObjects instanciados tienen su nombre + (Clone)
     // Ejemplo: Apple Pie(Clone)
     // Para eliminar el objeto instanciado, se debe eliminar el objeto con el mismo nombre
@@ -126,12 +128,12 @@ public class CookingStation : MonoBehaviour
     
     void RemoveIngredient(GameObject ingredient)
     { 
-        if (ingredient.name == "Apple")
+        if (ingredient.name == "Apple" || ingredient.name == "Apple(Clone")
         {
             appleCount--;
             addedIngredients.Remove(ingredient);
         }
-        else if (ingredient.name == "Pear")
+        else if (ingredient.name == "Pear"|| ingredient.name == "Pear(Clone")
         {
             pearCount--;
             addedIngredients.Remove(ingredient);

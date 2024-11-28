@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1079160947107618715}
   m_Layer: 0
   m_Name: Cut Station
-  m_TagString: Untagged
+  m_TagString: CookingStation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68be34d1511bef348b3a80779f96df7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canInteract: 0
   addedIngredients: []
   slicedIngredients:
   - {fileID: 2246629543266633665, guid: 9fc1509cc2e2a6146b2cb57e7c1324ce, type: 3}

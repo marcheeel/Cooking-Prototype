@@ -55,12 +55,12 @@ public class CutStation : MonoBehaviour
     
     void AddIngredient(GameObject ingredient)
     {
-        if (ingredient.name == "Apple")
+        if (ingredient.name == "Apple" || ingredient.name == "Apple(Clone")
         {
             appleCount++;
             addedIngredients.Add(ingredient);
         }
-        else if (ingredient.name == "Pear")
+        else if (ingredient.name == "Pear"|| ingredient.name == "Pear(Clone")
         {
             pearCount++;
             addedIngredients.Add(ingredient);
@@ -76,7 +76,8 @@ public class CutStation : MonoBehaviour
         for (int i = addedIngredients.Count - 1; i >= 0; i--)
         {
             var item = addedIngredients[i];
-            if (item.name == "Apple" || item.name == "Pear")
+            if (item.name == "Apple" || item.name == "Apple(Clone" 
+                || item.name == "Pear" || item.name == "Pear(Clone")
             {
                 addedIngredients.RemoveAt(i);
                 Destroy(item);
@@ -91,12 +92,12 @@ public class CutStation : MonoBehaviour
 
     void RemoveIngredient(GameObject ingredient)
     {
-        if (ingredient.name == "Apple")
+        if (ingredient.name == "Apple" || ingredient.name == "Apple(Clone")
         {
             appleCount--;
             addedIngredients.Remove(ingredient);
         }
-        else if (ingredient.name == "Pear")
+        else if (ingredient.name == "Pear"|| ingredient.name == "Pear(Clone")
         {
             pearCount--;
             addedIngredients.Remove(ingredient);

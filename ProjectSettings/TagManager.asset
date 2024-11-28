@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Draggable
   - CookingStation
+  - Basket
   layers:
   - Default
   - TransparentFX
