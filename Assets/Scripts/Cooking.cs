@@ -9,8 +9,8 @@ public class Cooking : MonoBehaviour
     public List<GameObject> addedIngredients;
     public GameObject[] dishes;
     [SerializeField] float cookingTime = 5f; // Tiempo de cocción en segundos
-    private GameObject currentCookedDish = null; // Referencia al plato instanciado
-    private bool isCooking = false; // Bandera para indicar si se está cocinando
+    [SerializeField] GameObject currentCookedDish = null; // Referencia al plato instanciado
+    [SerializeField] bool isCooking = false; // Bandera para indicar si se está cocinando
     
     [SerializeField] int appleCount;
     [SerializeField] int pearCount;
@@ -105,7 +105,7 @@ public class Cooking : MonoBehaviour
         }
         else
         {
-            RemoveIngredient(ingredient);
+            addedIngredients.Add(ingredient);
         }
     }
     
@@ -122,17 +122,17 @@ public class Cooking : MonoBehaviour
             pearCount--;
             addedIngredients.Remove(ingredient);
         }
-        else
+        else if (ingredient.name == "Apple Pie(Clone)" || ingredient.name == "Pear Pie(Clone)"
+                 || ingredient.name == "Apple and Pear Pie(Clone)")
         {
             RemoveIngredient(ingredient);
+            currentCookedDish = null;
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Draggable") && other.gameObject.name != "Apple Pie" 
-                                                     && other.gameObject.name != "Pear Pie" 
-                                                     && other.gameObject.name != "Apple and Pear pie")
+        if (other.gameObject.CompareTag("Draggable"))
         {
             AddIngredient(other.gameObject);
         }
@@ -140,9 +140,7 @@ public class Cooking : MonoBehaviour
     
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Draggable") && other.gameObject.name != "Apple Pie" 
-                                                     && other.gameObject.name != "Pear Pie" 
-                                                     && other.gameObject.name != "Apple and Pear pie")
+        if (other.gameObject.CompareTag("Draggable"))
         {
             RemoveIngredient(other.gameObject);
         }

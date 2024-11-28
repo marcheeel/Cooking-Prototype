@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5954999461580331099}
   - component: {fileID: 6979743974344768578}
   m_Layer: 3
-  m_Name: Apple & Pear Pie
+  m_Name: Apple and Pear Pie
   m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
