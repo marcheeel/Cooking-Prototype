@@ -8,6 +8,7 @@ public class DragAndDrop : MonoBehaviour
     [SerializeField] Transform hands;
     public Transform grabbedObject;
     [SerializeField] bool isDragging = false;
+    [SerializeField] LayerMask raycastLayerMask;
 
     private void Update()
     {
@@ -21,12 +22,11 @@ public class DragAndDrop : MonoBehaviour
         }
         
         Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
+        RaycastHit hit; 
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, raycastLayerMask))
         {
             if (hit.transform.tag == "Draggable" && Input.GetKeyDown(KeyCode.Space))
             {
-
                 isDragging = !isDragging;
 
                 if (isDragging)
