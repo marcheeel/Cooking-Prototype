@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Cooking : MonoBehaviour
+public class CookingStation : MonoBehaviour
 {
+    public bool canInteract;
+    
     public List<GameObject> addedIngredients;
     public GameObject[] dishes;
     [SerializeField] float cookingTime = 5f; // Tiempo de cocción en segundos
@@ -26,13 +28,25 @@ public class Cooking : MonoBehaviour
 
         appleCount = 0;
         pearCount = 0;
+        
+        canInteract = false;
     }
 
     private void Update()
     {
-        if (!isCooking && Input.GetKeyDown(KeyCode.E) && addedIngredients.Count > 0)
+        if (canInteract)
         {
-            StartCoroutine(CookingCoroutine());
+            if (!isCooking && Input.GetKeyDown(KeyCode.E) && addedIngredients.Count > 0)
+            {
+                if (appleCount > 0 || pearCount > 0)
+                {
+                    StartCoroutine(CookingCoroutine());
+                }
+                else
+                {
+                    Debug.Log("Can't cook something with that!");
+                }
+            }
         }
     }
 
@@ -76,18 +90,14 @@ public class Cooking : MonoBehaviour
     
     void RemoveUsedIngredients()
     {
-        var apple = addedIngredients.Find(item => item.name == "Apple");
-        if (apple != null)
+        for (int i = addedIngredients.Count - 1; i >= 0; i--)
         {
-            addedIngredients.Remove(apple);
-            Destroy(apple);
-        }
-    
-        var pear = addedIngredients.Find(item => item.name == "Pear");
-        if (pear != null)
-        {
-            addedIngredients.Remove(pear);
-            Destroy(pear);
+            var item = addedIngredients[i];
+            if (item.name == "Apple" || item.name == "Pear")
+            {
+                addedIngredients.RemoveAt(i);
+                Destroy(item);
+            }
         }
     }
     
@@ -109,13 +119,17 @@ public class Cooking : MonoBehaviour
         }
     }
     
+    // Todos los GameObjects instanciados tienen su nombre + (Clone)
+    // Ejemplo: Apple Pie(Clone)
+    // Para eliminar el objeto instanciado, se debe eliminar el objeto con el mismo nombre
+    // Ejemplo: Apple Pie
+    
     void RemoveIngredient(GameObject ingredient)
     { 
         if (ingredient.name == "Apple")
         {
             appleCount--;
             addedIngredients.Remove(ingredient);
-
         }
         else if (ingredient.name == "Pear")
         {
@@ -123,9 +137,10 @@ public class Cooking : MonoBehaviour
             addedIngredients.Remove(ingredient);
         }
         else if (ingredient.name == "Apple Pie(Clone)" || ingredient.name == "Pear Pie(Clone)"
-                 || ingredient.name == "Apple and Pear Pie(Clone)")
+                                                       || ingredient.name == "Apple and Pear Pie(Clone)")
         {
-            RemoveIngredient(ingredient);
+            // Corrigiendo la llamada recursiva
+            addedIngredients.Remove(ingredient);
             currentCookedDish = null;
         }
     }
@@ -136,6 +151,11 @@ public class Cooking : MonoBehaviour
         {
             AddIngredient(other.gameObject);
         }
+        
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            canInteract = !canInteract;
+        }
     }
     
     void OnTriggerExit(Collider other)
@@ -143,6 +163,11 @@ public class Cooking : MonoBehaviour
         if (other.gameObject.CompareTag("Draggable"))
         {
             RemoveIngredient(other.gameObject);
+        }
+        
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            canInteract = !canInteract;
         }
     }
 }

@@ -21,8 +21,7 @@ public class DragAndDrop : MonoBehaviour
             isDragging = !isDragging;
         }
         
-        Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red);
-        RaycastHit hit; 
+        RaycastHit hit; // Reutilizar hit variable
         if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance, raycastLayerMask))
         {
             if (hit.transform.tag == "Draggable" && Input.GetKeyDown(KeyCode.Space))
